@@ -31,7 +31,16 @@ be `Nameable`.
 Luck could be used for anything and so should be separated. Testing will require luck to have a dependency injection 
 for dealing with randomness.
 
-Attack and defence are attributes of combat only. 
+Attack and defence are attributes of combat only. They might be a data clump. 
+
+There is a real, but not assumed possibility that the match will be less boring with multiple actions. The rules of
+interaction of these actions, together with other attributes may necessitate a game type object. Given the requirement 
+for a narrator, the dependency injection gets quite deep and would necessitate extra code to avoid message chains.
+Better to have an umpire who can manage the rules, the player, the time, and the narrator.
+
+The dragon going first at random is on the backlog.
+
+A static factory seemed appropriate to handle the dependency injection and defaults.
 
 Command line arguments:
 

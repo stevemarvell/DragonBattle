@@ -12,12 +12,18 @@ class Dragon implements CombatantInterface
     /** @var string */
     private $name;
 
-    public function __construct(string $name, int $health, int $luck)
+    public function __construct(
+        LuckCheckerInterface $luckChecker,
+        string $name,
+        int $health,
+        int $luck)
     {
         $this->name = $name;
 
         $this->setHealth($health);
+
         $this->setLuck($luck);
+        $this->setLuckChecker($luckChecker);
     }
 
     public function name():string

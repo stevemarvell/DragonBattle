@@ -9,6 +9,9 @@ trait LuckTrait
     /** @var int */
     private $luck;
 
+    /** @var LuckCheckerInterface */
+    private $luckChecker;
+
     public function luck(): int
     {
         return $this->luck;
@@ -19,8 +22,13 @@ trait LuckTrait
         $this->luck = $luck < 0 ? 0 : $luck > 100 ? 100 : $luck;
     }
 
-    public function isLucky(LuckCheckerInterface $luckChecker): bool
+    private function setLuckChecker(LuckCheckerInterface $luckChecker): void
     {
-        return $luckChecker->isLucky($this->luck);
+        $this->luckChecker = $luckChecker;
+    }
+
+    public function isLucky(): bool
+    {
+        return $this->luckChecker->isLucky($this->luck);
     }
 }

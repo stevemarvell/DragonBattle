@@ -1,6 +1,7 @@
 <?php
 
 use DragonBattle\Dragon;
+use DragonBattle\DragonFactory;
 use DragonBattle\LuckChecker;
 use DragonBattle\LuckCheckerInterface;
 use PHPUnit\Framework\TestCase;
@@ -17,16 +18,24 @@ class LuckTest extends TestCase
     {
         $luckChecker = Mockery::mock(LuckCheckerInterface::class);
         $luckChecker->shouldReceive('isLucky')->andReturn(true);
-        $combatant = new Dragon("Bob", 10, 10);
-        $this->assertTrue($combatant->isLucky($luckChecker));
+
+        DragonFactory::setLuckChecker($luckChecker);
+
+        $combatant = DragonFactory::create();
+        
+        $this->assertTrue($combatant->isLucky());
     }
 
     public function testUnluckyMethod(): void
     {
         $luckChecker = Mockery::mock(LuckCheckerInterface::class);
         $luckChecker->shouldReceive('isLucky')->andReturn(false);
-        $combatant = new Dragon("Bob", 10, 10);
-        $this->assertFalse($combatant->isLucky($luckChecker));
+
+        DragonFactory::setLuckChecker($luckChecker);
+
+        $combatant = DragonFactory::create();
+        
+        $this->assertFalse($combatant->isLucky());
     }
 
     /*
@@ -37,13 +46,15 @@ class LuckTest extends TestCase
     {
         $luckChecker = new LuckChecker(function ($min,$max) { return 50; });
 
-        $combatant = new Dragon("Bob", 10, 49);
-        $this->assertFalse($combatant->isLucky($luckChecker));
+        DragonFactory::setLuckChecker($luckChecker);
 
-        $combatant = new Dragon("Bob", 10, 50);
-        $this->assertTrue($combatant->isLucky($luckChecker));
+        $combatant = DragonFactory::create(['luck' => 49]);
+        $this->assertFalse($combatant->isLucky());
 
-        $combatant = new Dragon("Bob", 10, 51);
-        $this->assertTrue($combatant->isLucky($luckChecker));
+        $combatant = DragonFactory::create(['luck' => 50]);
+        $this->assertTrue($combatant->isLucky());
+
+        $combatant = DragonFactory::create(['luck' => 51]);
+        $this->assertTrue($combatant->isLucky());
     }
 }
