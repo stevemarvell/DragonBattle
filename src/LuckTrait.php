@@ -17,9 +17,9 @@ trait LuckTrait
         return $this->luck;
     }
 
-    private function setLuck(int $luck): void
+    private function setLuck(int $luck = 0): void
     {
-        $this->luck = $luck < 0 ? 0 : $luck > 100 ? 100 : $luck;
+        $this->luck = $luck < 0 ? 0 : ( $luck > 100 ? 100 : $luck );
     }
 
     private function setLuckChecker(LuckCheckerInterface $luckChecker): void

@@ -3,7 +3,6 @@
 
 namespace DragonBattle;
 
-
 class DragonFactory
 {
     /** @var LuckCheckerInterface */
@@ -17,14 +16,16 @@ class DragonFactory
     public static function create($attributes = []): Dragon
     {
         if (!isset(static::$luckChecker)) {
-            static::$luckChecker = new LuckChecker('mt_rand');
+            static::setLuckChecker(new LuckChecker('mt_rand'));
         }
 
         return new Dragon(
             static::$luckChecker,
-            $attributes['name'] ?? "Unnamed",
+            $attributes['name'] ?? Dragon::NONAME,
             $attributes['health'] ?? 0,
             $attributes['luck'] ?? 0,
+            $attributes['attack'] ?? 0,
+            $attributes['defence'] ?? 0,
         );
     }
 }

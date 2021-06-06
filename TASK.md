@@ -62,6 +62,10 @@ be one attacker and one defender amd so damage in one direction. This way, there
 
 Combat has no options, so does not deserve a Strategy pattern.
 
+## Remaining Questions
+
+What to do with unnamed dragons?
+
 ## Data
 
 ### Red Dragon

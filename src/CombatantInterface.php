@@ -2,7 +2,7 @@
 
 namespace DragonBattle;
 
-interface CombatantInterface extends HealthInterface, LuckInterface
+interface CombatantInterface extends HealthInterface, LuckInterface, CombatInterface
 {
 
 }

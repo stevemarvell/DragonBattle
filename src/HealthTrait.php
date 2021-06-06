@@ -14,7 +14,7 @@ trait HealthTrait
         return $this->health;
     }
 
-    private function setHealth(int $health): void
+    private function setHealth(int $health = 0): void
     {
         $this->health = $health < 0 ? 0 : $health;
     }
