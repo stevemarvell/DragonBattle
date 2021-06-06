@@ -1,4 +1,4 @@
-#Task
+# Task
 
 Create a command line PHP application that simulates a battle between two dragons.
 
@@ -6,42 +6,45 @@ Create a command line PHP application that simulates a battle between two dragon
 
 The script should optionally ask for the names of the dragons.
 
-The script should optionally ask for the total bouts to be fought. Default to 1 The script should randomly 
-create 2 dragons, and simulate a turn based fight between them. The script should be verbose, describing 
-everything that happens during the battle. The script should end when one of the dragons is defeated. 
+The script should optionally ask for the total bouts to be fought. Default to 1 The script should randomly create 2
+dragons, and simulate a turn based fight between them. The script should be verbose, describing everything that happens
+during the battle. The script should end when one of the dragons is defeated.
 
-You are free to implement this in any way you choose, however please inform us of any assumptions or 
-decisions you have made, and why, and remember this is an enterprise engineering task with all the 
-expectations of that level. Show us what you’re good at.
+You are free to implement this in any way you choose, however please inform us of any assumptions or decisions you have
+made, and why, and remember this is an enterprise engineering task with all the expectations of that level. Show us what
+you’re good at.
 
 ## Interpretation and Implementation
 
-This is an "anything" combat system, not a dragon combat system. Dragon in context, is a combatant. 
-A combatant is therefore an interface.
+This is an "anything" combat system, not a dragon combat system. Dragon in context, is a combatant. A combatant is
+therefore an interface.
 
-Health is largely self-contained, and so can be made a trait with an interface. Setting health less than zero 
-is a mistake, not an exception, so set to zero. This alleviates any need for `takeDamage` with the actual effect. 
-Rather is just obeys the rules. Setting largely seem an internal process and the `setHealth()` method should be
-`private`.
+Health is largely self-contained, and so can be made a trait. It is intrinsically linked to combat, so needs to have an
+interface. Setting health less than zero is a mistake, not an exception, so set to zero. This alleviates any need
+for `takeDamage` to concern itself with the actual effect. Rather is just obeys the rules. Setting largely seem an
+internal process and the `setHealth()` method should be `private`.
 
-There is no point in having `Dragon extends Creature` and `Creature extends Object` so that objects can have names, 
-because that's a future assumption. We can always promote names that later. Nor is there merit in letting something 
+There is no point in having `Dragon extends Creature` and `Creature extends Object` so that objects can have names,
+because that's a future assumption. We can always promote names that later. Nor is there merit in letting something
 be `Nameable`.
 
+Luck could be used for anything and so should be separated. Testing will require luck to have a dependency injection 
+for dealing with randomness.
 
+Attack and defence are attributes of combat only. 
 
 Command line arguments:
 
-`php dragon-battle.php [--name1=NAME] [--name2=NAME] [--matches=NUMBER]`
+`php dragon-battle.php [--name1=NAME] [--name2=NAME] [--bouts=NUMBER]`
 
 Defaults:
 
     name1="Dragon 1"
     name2="Dragon 2"
-    matches=1
+    bouts=1
 
-Turns are sequential, with one attack following another, not simultaneous attacks. Therefore, in each turn,
-there will be one attacker and one defender amd so damage in one direction. This way, there can be no draws.
+Turns are sequential, with one attack following another, not simultaneous attacks. Therefore, in each turn, there will
+be one attacker and one defender amd so damage in one direction. This way, there can be no draws.
 
     damage = attack - defence
 
@@ -49,7 +52,6 @@ there will be one attacker and one defender amd so damage in one direction. This
     luck can pierce and double attack
 
 Combat has no options, so does not deserve a Strategy pattern.
-
 
 ## Data
 
